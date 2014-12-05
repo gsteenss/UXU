@@ -41,7 +41,7 @@ uzixfscat: uzixfscat.o $(COMMONOBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f uzixfsinfo uzixfsls mkuzixfs *.o *~
+	rm -f uzixfsinfo uzixfsls mkuzixfs uzixfscat *.o *~
 
 cleandist:
 	rm -f UXU-*.tar.gz
