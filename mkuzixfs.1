@@ -1,0 +1,85 @@
+.TH MKUZIXFS 1 "January 18th, 2003" "Uzix X-Utils" "User Manuals"
+.SH NAME
+mkuzixfs \- create a new UZIX filesystem image
+.SH SYNOPSIS
+.B mkuzixfs
+.RI [\-q]
+.RI [\-o\ dskfile]
+.RI [\-f\ size]
+.RI [\-i\ size]
+.RI [\-r\ size]
+.br
+.SH DESCRIPTION
+mkuzixfs is part of the UZIX X-Utils (UXU) package for
+dealing with UZIX filesystems on non-UZIX platforms.
+.PP
+mkuzixfs creates an empty UZIX filesystem image on
+a file. It is not recommended to run it directly
+on devices (like /dev/hda3 or /dev/fd0), but rather
+create the filesystem image in a file and then transfer
+it to its destination media with the \fBdd\fR(1) utility.
+
+.SH "COMMAND-LINE OPTIONS"
+.IP -q
+run quietly, supressing normal console output.
+.IP "-o dskfile"
+write the new filesystem to the given file. If omitted, 
+the filesystem is written to \fBnewuzix.dsk\fR.
+.IP "-f size"
+this is the total size of the filesystem. size can
+be given in kbytes, bytes or blocks (1 block = 512 bytes).
+See below for the syntax. If omitted, a filesystem
+size of 720K is assumed. The size must be a multiple
+of 512 bytes.
+.IP "-i size"
+this is the space to be allocated for inodes. Each
+inode takes 64 bytes, so each block can store 8 inodes.
+This size must be a multiple of 512 bytes, the syntax
+is the same of the \-f parameter, see below. Each
+file uses an inode, so, in a sense, the number of
+inodes is the maximum number of files in the filesystem.
+If this option is omitted, a default of 25 blocks of inodes
+is assumed.
+.IP "-r size"
+this is space to reserve between the superblock (block 1)
+and the inode blocks. If omitted, a default of 0 is used.
+This parameter is useful if you want to place non-FS data
+in the disk (like a operating system kernel to boot or just
+hidden data non one knows about). It must be a multiple of
+512 bytes, the format is the same, described below.
+.PP
+The sizes in the \-f/\-i/\-r options are integer numbers
+optionally followed by a letter. If followed by \fBK\fR,
+the value is taken as KBytes (1 KByte = 1024 Bytes).
+If followed bt \fBb\fR, the value is taken as
+blocks (1 block = 512 Bytes). If no letter follows the
+number, it is taken as Bytes. There can be NO space
+between the number and the letter.
+.PP
+.SH EXAMPLES
+
+\fBCreate a filesystem to fit a 720KB floppy:\fR
+.br
+mkuzixfs -o floppy.dsk -f 720K -i 25b
+
+\fBCreate a filesystem to fit a 10MB hard disk partition:\fR
+.br
+mkuzixfs -o hd.dsk -f 10240K -i 500b
+
+\fBWrite a filesystem image to a floppy disk, on Linux:\fR
+.br
+dd if=floopy.dsk of=/dev/fd0 count=1440
+
+.SH BUGS
+All utilities in this version of UXU lack the ability to
+follow symbolic links.
+
+.SH AUTHORS
+UXU was written by Felipe Bergo <bergo@seul.org>, with help from
+Adriano Cunha's sources to the Uzix operating system. UXU's sources are
+available under the GNU General Public License. See http://foca.sf.net and
+http://uzix.sf.net.
+
+.SH "SEE ALSO"
+\fBdd\fR(1), \fBuzixfscat\fR(1), \fBuzixfsinfo\fR(1), \fBuzixfsls\fR(1)
+

@@ -1,0 +1,40 @@
+.TH UZIXFSCAT 1 "January 18th, 2003" "Uzix X-Utils" "User Manuals"
+.SH NAME
+uzixfscat \- read files from a UZIX file system image
+.SH SYNOPSIS
+.B uzixfscat
+.RI uzix-dsk
+.RI pathname
+.br
+.SH DESCRIPTION
+uzixfscat is part of the UZIX X-Utils (UXU) package for
+dealing with UZIX filesystems on non-UZIX platforms.
+.PP
+uzixfscat reads the contents of a given file (pathname) 
+from a UZIX fs disk image (uzix-dsk) and prints it on the
+standard output.
+.PP
+.SH EXAMPLES
+
+\fBRead /etc/passwd from uzix.dsk:\fR
+.br
+uzixfscat uzix.dsk /etc/passwd
+
+\fBRead /home/user/ginseng.sux from the UZIX filesystem resident
+in the /dev/hda5 partition:\fR
+.br
+uzixfscat /dev/hda5 /home/user/ginseng.sux
+
+.SH BUGS
+All utilities in this version of UXU lack the ability to
+follow symbolic links.
+
+.SH AUTHORS
+UXU was written by Felipe Bergo <bergo@seul.org>, with help from
+Adriano Cunha's sources to the Uzix operating system. UXU's sources are
+available under the GNU General Public License. See http://foca.sf.net and
+http://uzix.sf.net.
+
+.SH "SEE ALSO"
+\fBmkuzixfs\fR(1), \fBuzixfsinfo\fR(1), \fBuzixfsls\fR(1)
+

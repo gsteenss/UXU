@@ -1,0 +1,31 @@
+.TH UZIXFSINFO 1 "January 18th, 2003" "Uzix X-Utils" "User Manuals"
+.SH NAME
+uzixfsinfo \- show information of a UZIX filesystem image
+.SH SYNOPSIS
+.B uzixfsinfo
+.RI uzix-dsk
+.RI [uzix-dsk...]
+.br
+.SH DESCRIPTION
+uzixfsinfo is part of the UZIX X-Utils (UXU) package for
+dealing with UZIX filesystems on non-UZIX platforms.
+.PP
+uzixfsinfo shows superblock and size information of
+one or more UZIX filesystem images. It basically
+dumps, in human-readable form, the contents of the
+filesystem's superblock. It also performs some
+sanity checks on the superblock info (but it doesn't
+fix anything -- this is not even close to a fsck).
+
+.SH BUGS
+All utilities in this version of UXU lack the ability to
+follow symbolic links.
+
+.SH AUTHORS
+UXU was written by Felipe Bergo <bergo@seul.org>, with help from
+Adriano Cunha's sources to the Uzix operating system. UXU's sources are
+available under the GNU General Public License. See http://foca.sf.net and
+http://uzix.sf.net.
+
+.SH "SEE ALSO"
+\fBmkuzixfs\fR(1), \fBuzixfsls\fR(1), \fBuzixfscat\fR(1)

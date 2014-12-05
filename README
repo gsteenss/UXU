@@ -1,0 +1,55 @@
+
+
+Uzix X-Utils (UXU)
+Felipe Bergo <bergo@seul.org>
+
+** uma versao em portugues deste arquivo esta' inclusa como
+** README.pt
+
+UXU is a collection of utilities to manipulate UZIX[1]
+filesystems on non-Uzix systems (mostly Linux). This package
+can be modified and redistributed under the terms of the
+GNU General Public License, included in the file COPYING.
+
+UXU currently includes 4 general purpose, read-only utilities:
+
+* uzixfsinfo    - show superblock information
+* uzixfsls      - list directories (like ls -lR)
+* uzixfscat     - print files (from a UZIX fs) on standard output
+* mkuzixfs      - create a new UZIX filesystem image
+
+Although these have been developed on Linux, they should work on
+any other Un*x, even on Windows under Cygwin.
+
+UXU includes a Linux kernel module for mounting Uzix filesystems
+read-write. For documentation of the Linux kernel module, read the
+README in the Linux directory of this package.
+
+To compile and install:
+
+(1) edit the Makefile and change the prefix if you want
+    ( if you skip this step, the utilities will be installed
+      on /usr/local/bin, man pages in /usr/local/man/man1 )
+(2) make
+(3) (become root) make install
+
+There are man pages for the 4 programs. New programs will come
+soon (to allow writing to a UZIX filesystem).
+
+KNOWN ISSUES:
+
+** uzixfscat and uzixfsls will not follow symbolic links.
+
+** the calls in uzixfs.c for writing in the filesystem are likely
+   to have bugs, I wrote them first, them wrote the Linux kernel
+   module (which does read/write ok), while translating the
+   code, I noticed some logic errors, fixed them in the kernel
+   module but not in the uzixfs.c that is used by the UXU user
+   utilities. If you're going to try writing new utilities based on
+   uzixfs.c and uzixdir.c , beware that they're likely to have
+   completely wrong functions.
+
+New versions of this package are likely to be 
+posted to http://foca.sf.net
+
+[1] http://uzix.sf.net

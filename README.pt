@@ -1,0 +1,49 @@
+
+
+Uzix X-Utils (UXU)
+Felipe Bergo <bergo@seul.org>
+
+** an english version of this file is included as README
+
+UXU e' uma colecao de utilitarios para manipular filesystems
+UZIX[1] em sistemas nao-Uzix (principalmente Linux). Este pacote
+pode ser modificado e redistribuido sob os termos da GNU General
+Public License, inclusa no arquivo COPYING.
+
+UXU atualmente inclui 4 utilitarios de proposito geral, 
+somente-leitura:
+
+* uzixfsinfo    - mostra informacoes do superblock
+* uzixfsls      - lista diretorios (como ls -lR)
+* uzixfscat     - imprime arquivos (de um fs UZIX) na saida padrao
+* mkuzixfs      - cria uma nova imagem de filesystem UZIX
+
+Embora tenham sido desenvolvidos em Linux, devem funcionar
+em qualquer Un*x, ate' mesmo em Windows (com Cygwin).
+
+UXU inclui um modulo de kernel para o Linux para montar filesystems
+Uzix para leitura e escrita. Para sua documentacao, veja o diretorio
+Linux deste pacote. A documentacao do modulo esta' apenas em ingles.
+
+Para compilar e instalar:
+
+(1) edite o Makefile e mude o valor de prefix se desejar
+    ( se voce pular este passo, os utilitarios serao instalados
+      em /usr/local/bin, e as man pages em /usr/local/man/man1 )
+(2) make
+(3) (torne-se root) make install
+
+Ha' man pages para os 4 programas. Novos programas devem surgir
+em breve (para permitir escrita em um filesystem Uzix)
+
+PROBLEMAS CONHECIDOS:
+
+** uzixfscat e uzixfsls nao seguem links simbolicos.
+
+** as chamadas em uzixfs.c para escrever no filesystem provavelmente
+   contem erros. Leia o README em ingles para ver o bla-bla-bla todo.
+
+Novas versoes deste pacote provavelmente aparecerao 
+em http://foca.sf.net
+
+[1] http://uzix.sf.net

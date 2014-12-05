@@ -1,0 +1,38 @@
+.TH UZIXFSLS 1 "January 18th, 2003" "Uzix X-Utils" "User Manuals"
+.SH NAME
+uzixfsls \- list directories from a UZIX filesystem image
+.SH SYNOPSIS
+.B uzixfsls
+.RI uzix-dsk
+.RI [directory]
+.br
+.SH DESCRIPTION
+uzixfsls is part of the UZIX X-Utils (UXU) package for
+dealing with UZIX filesystems on non-UZIX platforms.
+.PP
+uzixfsls recursively lists directories from a given
+UZIX filesystem image (uzix-dsk). Its output is
+similar to that of \fBls -lR\fR on Unix systems.
+It lists all files and directories beneath the
+directory given in the command-line; If the second
+parameter is ommitted, a starting directory \fB/\fR
+is assumed.
+.PP
+.SH EXAMPLE
+
+\fBList the contents of uzix.dsk:\fR
+.br
+uzixfsls uzix.dsk
+
+.SH BUGS
+All utilities in this version of UXU lack the ability to
+follow symbolic links.
+
+.SH AUTHORS
+UXU was written by Felipe Bergo <bergo@seul.org>, with help from
+Adriano Cunha's sources to the Uzix operating system. UXU's sources are
+available under the GNU General Public License. See http://foca.sf.net and
+http://uzix.sf.net.
+
+.SH "SEE ALSO"
+\fBmkuzixfs\fR(1), \fBuzixfsinfo\fR(1), \fBuzixfscat\fR(1)

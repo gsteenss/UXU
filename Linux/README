@@ -1,0 +1,120 @@
+
+UZIX filesystem support for Linux
+---------------------------------
+
+written by Felipe Bergo <bergo@seul.org>
+Distributed with the UXU package (Uzix X-Utils)
+License: GNU GPL
+
+This is a Linux kernel module that adds support for the uzix
+filesystem type. It was developed and tested on a x86 Linux box
+running Linux 2.4.18. This module should work with any 2.4.x kernel
+version. I can't say anything about 2.2.x (probably you'll run into
+problems) or about 2.5.x (likely to work fine). Reports are welcome.
+
+The uzix filesystem is little-endian. This module should work on
+big-endian machines, since it makes conversions from little-endian to
+current cpu's endianness explicitly, but I didn't test it, so reports
+are welcome too (maybe I forgot some conversion, who knows).
+
+USING THIS SOFTWARE
+
+To use the module:
+
+1. type 'make'. This should create the uzix.o file.
+2. you can just 'insmod uzix.o' (as root) to load
+   the module, but most likely you'll want to copy it
+   to somewhere in /lib/modules/.
+   'man depmod', 'man modprobe', 'man modules.conf' are
+   your friends.
+
+To mount a filesystem you'll do something like:
+
+mount -t uzix /dev/hda5 /mnt/a
+              
+the /mnt/a is an example, this must be an empty, existing directory.
+
+To mount a filesystem read-only, add -r to the line above.
+You can also mount uzix filesystem images using the loopback
+driver. On most installations you'd do something like
+
+/sbin/modprobe loop
+mount -t uzix -o loop file.dsk /mnt/a
+
+mounting is mostly something for root accounts, not measly peasants,
+but you can setup your /etc/fstab to allow plain users to mount
+specific mount points by themselves, with a line like
+
+/dev/fd0        /uzix      uzix   noauto,user  0  0
+
+'man fstab' is your friend.
+
+
+THE STATE OF THINGS
+
+1. read-only operation seems to be flawless, but if you notice anything 
+   weird, email me. If you're not going to write, mount read-only.
+
+2. in read-write mode...
+
+(a) if you see this message on your 'dmesg' output after umount:
+
+VFS: Busy inodes after unmount. Self-destruct in 5 seconds.  Have a nice day...
+
+Don't worry. I'm still debugging what inodes are busy, but Linux
+cleans them up after this message, and the filesystem is not damaged.
+
+(b) the low-level rename operation (used by the mv(1) command) comes
+    in two ways: in one you're just moving the inode reference from
+    one directory to another, changing the reference (directory entry)'s
+    name. In the other, a brand new inode is given by the kernel.
+    I don't have the faintest idea how this second situation can be
+    instantiated, and it's not supported by the driver. You'll see
+
+UZIX-fs: FIXME - what did you do to generate this message ? email bergo@seul.org about it.
+
+    in your dmesg output if you ever generate it. If you do, let me know
+    what you did.
+
+(c) as far as I know, this module will not cause kernel panics or lock
+    the machine in any way. BUT, I'm not used to writing kernel stuff.
+    You're not supposed to run this on the server the keeps your
+    multi-million dollar company going, ok ? ;-)
+
+WANTED:
+
+- reports on whether this thing works on big-endian machines (PowerPC,
+  Sparc) 
+
+- reports on whether this thing compiles and works fine with Linux
+  kernel versions other than 2.4.18. Especially 2.2.x and 2.5.x reports
+  are welcome.
+
+- reports on whether this thing works on floppy disks. My floppy drive
+  is broken, I tested this with IDE hard disk partitions and .dsk
+  files mounted thru -o loop.
+
+
+A FAQ, A FAQ, THEY HAVE A FAQ!!!
+
+1.   Q: can you port this to FreeBSD / Windows / OS/2 ?
+
+     A: no, thanks. drivers like this are completely OS-specific,
+        porting involves a lot of work and knowledge of the
+        system that we're porting to. I never wrote driver stuff
+        for anything beyond Linux and MS-DOS.
+
+
+1.1. Q: so... can you port this to MS-DOS ?
+
+     A: please die a horrible death.
+
+
+2.   Q: why /etc/network has such funny mode/protection bits on
+        the UZIX system disks ?
+
+     A: no idea, but I swear those bits are right (UZIX's ls
+        doesn't display them correctly).
+
+---
+this module can be found in the UXU package at http://foca.sf.net
